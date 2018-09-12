@@ -5,7 +5,7 @@ var typeNames = ["flat", "house", "bungalo"];
 var checkingTimes= ["12:00", "13:00", "14:00"];
 var featuresList = ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"]
 
-var offerTemplate = document.querySelector('template').content;
+var offerTemplate = document.querySelector('#tmplt').content;
 var typeSelectElement = document.querySelector('#type');
 var priceInputElement = document.querySelector('#price');
 var timeinSelectElement = document.querySelector('#timein');
@@ -58,6 +58,7 @@ var createLocation = function () {
 	}
 return location;
 }; 
+//этот кусок дерьма не видит элементы
 
 var render = function () {
   var offerElement = offerTemplate.cloneNode(true);
