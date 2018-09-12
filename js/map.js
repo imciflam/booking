@@ -1,9 +1,18 @@
 var elem = document.querySelector(".map");
 elem.classList.remove('map--faded');
-var TITLE_NAMES = ["Большая уютная квартира", "Маленькая неуютная квартира", "Огромный прекрасный дворец", "Маленький ужасный дворец", "Красивый гостевой домик", "Некрасивый негостеприимный домик", "Уютное бунгало далеко от моря", "Неуютное бунгало по колено в воде"];
-var TYPE_NAMES = ["flat", "house", "bungalo"];
-var CHECKING_TIMES= ["12:00", "13:00", "14:00"];
-var FEATURES_LIST = ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"]
+var titleNames = ["Большая уютная квартира", "Маленькая неуютная квартира", "Огромный прекрасный дворец", "Маленький ужасный дворец", "Красивый гостевой домик", "Некрасивый негостеприимный домик", "Уютное бунгало далеко от моря", "Неуютное бунгало по колено в воде"];
+var typeNames = ["flat", "house", "bungalo"];
+var checkingTimes= ["12:00", "13:00", "14:00"];
+var featuresList = ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"]
+
+var offerTemplate = document.querySelector('template').content;
+var typeSelectElement = document.querySelector('#type');
+var priceInputElement = document.querySelector('#price');
+var timeinSelectElement = document.querySelector('#timein');
+var timeoutSelectElement = document.querySelector('#timeout');
+var roomNumberSelectElement = document.querySelector('#room_number');
+var capacitySelectElement = document.querySelector('#capacity');
+
 
 var getRandomInteger = function (min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -13,15 +22,15 @@ var createOffer = function () {
   var offer = [];
   for (var i = 0; i < 8; i++) {
     offer.push({
-      title: TITLE_NAMES[getRandomInteger(0, TITLE_NAMES.length)],
+      title: titleNames[getRandomInteger(0, titleNames.length)],
       address: location.x + ' ' + location.y,
       price: getRandomInteger(1000, 1000000),
-      type: TYPE_NAMES[getRandomInteger(0, TYPE_NAMES.length)],
+      type: typeNames[getRandomInteger(0, typeNames.length)],
       rooms: getRandomInteger(1, 5),
       guests: getRandomInteger(1, 25),
-      checkin: CHECKING_TIMES[getRandomInteger(0, CHECKING_TIMES.length)],
-      checkout: CHECKING_TIMES[getRandomInteger(0, CHECKING_TIMES.length)],
-      features:
+      checkin: checkingTimes[getRandomInteger(0, checkingTimes.length)],
+      checkout: checkingTimes[getRandomInteger(0, checkingTimes.length)],
+      features: featuresList[getRandomInteger(0, featuresList.length)],//сделать несколько
       description: "",
       photos: []
     });
@@ -50,3 +59,19 @@ var createLocation = function () {
 return location;
 }; 
 
+var render = function () {
+  var offerElement = offerTemplate.cloneNode(true);
+  offerElement.querySelector('h3').textContent = createOffer()[i].title;
+  offerElement.querySelector('small').textContent = createOffer()[i].address;
+  offerElement.querySelector('.popup__price').textContent = createOffer()[i].price;
+
+  return offerElement;
+};
+
+var fragment = document.createDocumentFragment();
+
+for (var i = 0; i < createOffer().length; i++) {
+  fragment.appendChild(render(createOffer()[i]));
+}
+
+offerTemplate.appendChild(fragment);
