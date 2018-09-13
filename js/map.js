@@ -1,3 +1,10 @@
+//to-do
+//push index
+//lol.content.querySelector('h3'); - works
+// random values from random lenght - two loops 
+//Array.prototype.fill() check out
+
+
 var elem = document.querySelector(".map");
 elem.classList.remove('map--faded');
 var titleNames = ["Большая уютная квартира", "Маленькая неуютная квартира", "Огромный прекрасный дворец", "Маленький ужасный дворец", "Красивый гостевой домик", "Некрасивый негостеприимный домик", "Уютное бунгало далеко от моря", "Неуютное бунгало по колено в воде"];
