@@ -65,7 +65,7 @@ var createLocation = function () {
 	}
 return location;
 }; 
-//этот кусок дерьма не видит элементы
+//этот кусок дерьма не видит элементы, 
 
 var render = function () {
   var offerElement = offerTemplate.cloneNode(true);
