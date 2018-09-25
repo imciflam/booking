@@ -1,7 +1,8 @@
 'use strict';
 
 var map = document.querySelector('.map');
-map.classList.remove('map--faded');
+var mapPin = document.querySelector('.map__pin--main')
+ 
 
 var ads = [];
 var ADS_LENGTH = 8;
@@ -76,6 +77,21 @@ var AdParameters = {
     }
   }
 };
+
+
+var openMap = function()
+{
+	 map.classList.remove('map--faded');
+	 adForm.classList.remove('ad-form--disabled');
+     setDisabledFieldsets(fieldsets, false);
+     capacitySelect.value = '1';
+}
+
+mapPin.addEventListener("mouseup", function(evt)
+{
+	openMap();
+})
+
 
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -170,7 +186,7 @@ var renderCard = function (ad) {
   cardElement.querySelector('.popup__title').textContent = ad.offer.title;
   cardElement.querySelector('.popup__text--address').textContent = ad.offer.address;
   cardElement.querySelector('.popup__text--price').textContent = ad.offer.price + '₽/ночь';
-  cardElement.querySelector('.popup__type').textContent = TYPES[ad.offer.type].ru;
+  cardElement.querySelector('.popup__type').textContent = types[ad.offer.type].ru;
   cardElement.querySelector('.popup__text--capacity').textContent = ad.offer.rooms + ' комнаты для ' + ad.offer.guests + ' гостей';
   cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout;
 
