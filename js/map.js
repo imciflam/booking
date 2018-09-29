@@ -357,3 +357,4 @@ mainPin.addEventListener('mousedown', function (evt)
 });
 
 deactivatePage();
+ 
