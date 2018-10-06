@@ -35,7 +35,7 @@ var PHOTOS = [
 ];
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
-// var ENTER_KEYCODE = 13;
+//  var ENTER_KEYCODE = 13;
 var ESC_KEYCODE = 27;
 var MAIN_PIN_WIDTH = 65;
 var MAIN_PIN_HEIGHT = 87;
@@ -60,7 +60,7 @@ var timeIn = document.querySelector('#timein');
 var timeOut = document.querySelector('#timeout');
 var roomNumberSelect = document.querySelector('#room_number');
 var capacitySelect = document.querySelector('#capacity');
-// var inputs = document.querySelectorAll('input');
+//  var inputs = document.querySelectorAll('input');
 var currentAd;
 var pins = [];
 
@@ -310,11 +310,7 @@ timeOut.addEventListener('change', timeOutChangeHandler);
 mainPin.addEventListener('mousedown', function (evt)
 {
   evt.preventDefault();
-  var minX = 0 - MAIN_PIN_WIDTH / 2;
-  var maxX = pinsMap.offsetWidth - MAIN_PIN_WIDTH / 2;
-  var minY = MIN_Y_COORD - MAIN_PIN_HEIGHT;
-  var maxY = MAX_Y_COORD - MAIN_PIN_HEIGHT;
-  //default coordinates
+  //  default coordinates
   var startCoords = {
     x: evt.clientX,
     y: evt.clientY
@@ -323,18 +319,18 @@ mainPin.addEventListener('mousedown', function (evt)
     var onMouseMove = function (moveEvt)
     {
     moveEvt.preventDefault();
-    //find cursor's displacement during one event
-    //the difference between start coords and current coords
+    //  find cursor's displacement during one event
+    //  the difference between start coords and current coords
     var shift = {
       x: startCoords.x - moveEvt.clientX,
       y: startCoords.y - moveEvt.clientY
     };
-    //rewrite start location
+    //  rewrite start location
     startCoords = {
       x: moveEvt.clientX,
       y: moveEvt.clientY
     };
-    //add the difference thus moving the pin on cursor's place
+    //  add the difference thus moving the pin on cursor's place
     mainPin.style.top = (mainPin.offsetTop - shift.y) + "px";
     mainPin.style.left = (mainPin.offsetLeft - shift.x) + "px";
     };
@@ -353,8 +349,6 @@ mainPin.addEventListener('mousedown', function (evt)
     }
     document.addEventListener("mousemove", onMouseMove);
     document.addEventListener("mouseup", onMouseUp);
-
 });
 
 deactivatePage();
- 
