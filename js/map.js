@@ -62,6 +62,7 @@ var roomNumberSelect = document.querySelector('#room_number');
 var capacitySelect = document.querySelector('#capacity');
 //  var inputs = document.querySelectorAll('input');
 var currentAd;
+var submit = document.querySelector('.ad-form__submit');
 var pins = [];
 
 var getRandomInt = function (min, max) {
