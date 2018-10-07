@@ -76,6 +76,10 @@ var randomCompare = function () {
   return Math.random() - 0.5;
 };
 
+
+
+
+ 
 var getItem = function (number) {
   var x = getRandomInt(0, pinsMap.offsetWidth);
   var y = getRandomInt(MIN_Y_COORD, MAX_Y_COORD);
@@ -351,4 +355,6 @@ mainPin.addEventListener('mousedown', function (evt)
     document.addEventListener("mouseup", onMouseUp);
 });
 
-deactivatePage();
+
+
+//deactivatePage();
