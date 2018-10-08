@@ -77,15 +77,15 @@ var randomCompare = function () {
   return Math.random() - 0.5;
 };
 
-
-
-
+ 
+ 
  
 var getItem = function (number) {
   var x = getRandomInt(0, pinsMap.offsetWidth);
   var y = getRandomInt(MIN_Y_COORD, MAX_Y_COORD);
+  //mock item
   var item = {
-    autor: {
+    author: {
       avatar: 'img/avatars/user0' + (number + 1) + '.png'
     },
     offer: {
@@ -124,7 +124,7 @@ var getMapPin = function (item) {
     appendAd(item);
   });
   mapPin.style = 'left: ' + (item.location.x - PIN_WIDTH / 2) + 'px; top: ' + (item.location.y - PIN_HEIGHT) + 'px;';
-  mapPin.querySelector('img').src = item.autor.avatar;
+  mapPin.querySelector('img').src = item.author.avatar;
   mapPin.querySelector('img').alt = item.offer.title;
 
   return mapPin;
@@ -148,18 +148,16 @@ var getFeatures = function (features) {
   return fragment;
 };
 
-var getPictures = function (pictures) {
-  var fragment = document.createDocumentFragment();
-  pictures.forEach(function (item) {
-    var img = document.createElement('img');
-    img.src = item;
-    img.width = 45;
-    img.height = 40;
-    img.alt = 'Фотография жилья';
-    img.classList.add('popup__photo');
-    fragment.appendChild(img);
-  });
-  return fragment;
+var getFragmentPhotos = function (pictures) {
+    var fragmentPhotos = document.createDocumentFragment();
+    var popupPhoto = document.querySelector('#card').content.querySelector('.popup__photo');
+    for (var i = 0; i < pictures.length; i++) {
+      var newElement = popupPhoto.cloneNode(true);
+      newElement.src = pictures[i];
+      fragmentPhotos.appendChild(newElement);
+    }
+    return fragmentPhotos;
+
 };
 
 var onPopupEscPress = function (evt) {
@@ -174,34 +172,47 @@ var closeAd = function () {
   currentAd = null;
 };
 
+function getOfferType(item) {
+    var offerType;
+    switch (item.offer.type) {
+      case 'flat': offerType = 'Квартира';
+        break;
+      case 'palace': offerType = 'Дворец';
+        break;
+      case 'bungalo': offerType = 'Бунгало';
+        break;
+      case 'house': offerType = 'Дом';
+        break;
+      default: offerType = 'Ночлежка';
+        break;
+    }
+    return offerType;
+ }
+
+
 var getMapCard = function (item) {
   var adItem = mapAdTemplate.cloneNode(true);
-  var closeBtn = adItem.querySelector('.popup__close');
+  var pictures = adItem.querySelector('.popup__photos');
+  var photosFragment = getFragmentPhotos(item.offer.photos);
 
+
+  var closeBtn = adItem.querySelector('.popup__close');
   closeBtn.addEventListener('click', closeAd);
   document.addEventListener('keydown', onPopupEscPress);
 
   adItem.querySelector('.popup__title').textContent = item.offer.title;
   adItem.querySelector('.popup__text--address').textContent = item.offer.address;
   adItem.querySelector('.popup__text--price').innerHTML = item.offer.price + '&#x20bd;<span>/ночь</span></p>';
-
-  var offerType;
-  switch (item.offer.type) {
-    case 'flat': offerType = 'Квартира'; break;
-    case 'bungalo': offerType = 'Бунгало'; break;
-    case 'house': offerType = 'Дом'; break;
-    case 'palace': offerType = 'Дворец'; break;
-  }
-  adItem.querySelector('.popup__type').textContent = offerType;
+  adItem.querySelector('.popup__type').textContent = getOfferType(item);
   adItem.querySelector('.popup__text--capacity').textContent = item.offer.rooms + ' комнаты для ' + item.offer.guests + ' гостей';
   adItem.querySelector('.popup__text--time').textContent = 'Заезд после ' + item.offer.checkin + ', ' + 'выезд до ' + item.offer.checkout;
   adItem.querySelector('.popup__description').textContent = item.offer.description;
-  adItem.querySelector('.popup__avatar').src = item.autor.avatar;
+  adItem.querySelector('.popup__avatar').src = item.author.avatar;
 
-  var pictures = adItem.querySelector('.popup__photos');
-  var newPictures = pictures.cloneNode();
-  newPictures.appendChild(getPictures(item.offer.photos));
-  adItem.replaceChild(newPictures, pictures);
+  
+ // var newPictures = pictures.cloneNode();
+ // newPictures.appendChild(getPictures(item.offer.photos));
+ // adItem.replaceChild(newPictures, pictures);
 
   var features = adItem.querySelector('.popup__features');
   var newFeatures = features.cloneNode();
