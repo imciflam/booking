@@ -62,13 +62,128 @@ var currentAd;
 var pins = [];
 
 var fields = adForm.querySelectorAll('fieldset > input, select');
-  var resetButton = adForm.querySelector('.ad-form__reset');
-  var PriceOfType = {
+var resetButton = adForm.querySelector('.ad-form__reset');
+var PriceOfType = 
+{
     'bungalo': 0,
     'flat': 1000,
     'house': 5000,
     'palace': 10000
+ };
+
+
+
+(function () 
+{
+	adForm.addEventListener('input', onElementInput);
+	submit.addEventListener('click', onSubmitClick);
+	adForm.addEventListener('submit', onFormSubmit);
+	selectTimeIn.addEventListener('change', onSelectTimeChange);
+	selectTimeOut.addEventListener('change', onSelectTimeChange);
+selectType.addEventListener('change', onSelectTypeChange);
+resetButton.addEventListener('click', onResetClick);
+selectRoom.addEventListener('change', onSelectRoomChange);
+	  
+	function onFormSubmit(evt) {
+      window.backend.upLoadForm(new FormData(adForm), function () {
+      window.disableMap();
+      disableForm();
+      setMinPrice(selectType.value);
+    }, function (err) {
+      window.notice.showError(err);
+    });
+    evt.preventDefault();
+  }
+
+    function onSelectRoomChange() {
+    unMarkValidFields(selectCapacity);
+  }
+
+  function onElementInput(evt) {
+    var field = evt.target;
+    unMarkValidFields(field);
+  }
+
+  function onSelectTypeChange() {
+    setMinPrice(selectType.value);
+  }
+
+  function onSelectTimeChange(evt) {
+    var newSelect = evt.target;
+    setTimeInOut(newSelect);
+  }
+
+  function onSubmitClick() {
+    //checkCapacity();
+    markInvalidFields();
+  }
+
+  function onResetClick() {
+    fields.forEach(function (field) {
+      unMarkValidFields(field);
+    });
+    window.disableMap();
+    disableForm();
+    setMinPrice(selectType.value);
+  }
+    function setTimeInOut(newSelect) {
+    selectTimeIn.value = newSelect.value;
+    selectTimeOut.value = newSelect.value;
+  }
+
+  function setMinPrice(typeValue) {
+    price.min = PriceOfType[typeValue];
+    price.placeholder = PriceOfType[typeValue];
+  }
+
+  function unMarkValidFields(field) {
+    var hasFieldRemovedClass = field.classList.contains('field-invalid');
+    if (hasFieldRemovedClass) {
+      field.classList.remove('field-invalid');
+    }
+  }
+
+  function markInvalidFields() {
+    fields.forEach(function (field) {
+      if (!field.validity.valid) {
+        field.classList.add('field-invalid');
+      }
+    });
+  }
+
+  function setAddress(coords) {
+    address.value = coords.x + ', ' + coords.y;
+  }
+
+  function isFormDisabled() {
+    return adForm.classList.contains('ad-form--disabled');
+  }
+
+  function changeAvailabilityFields() {
+    var disable = isFormDisabled();
+    adFormFieldSets.forEach(function (field) {
+      field.disabled = disable;
+    });
+  }
+
+  function disableForm() {
+    adForm.reset();
+    adForm.classList.add('ad-form--disabled');
+    window.filter.disable();
+    changeAvailabilityFields();
+  }
+
+  window.form = {
+    setAddress: setAddress,
+    enable: function () {
+      adForm.classList.remove('ad-form--disabled');
+      changeAvailabilityFields();
+    }
   };
+
+})();
+
+
 
 
 var getRandomInt = function (min, max) {
