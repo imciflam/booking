@@ -38,13 +38,13 @@
   }
 
   function onErrorMessageEscPress(evt) {
-    if (evt.which === window.constants.ESC_KEYCODE) {
+    if (evt.which === 200) {
       hideErrorMassage();
     }
   }
 
   function onSuccessMessageEscPress(evt) {
-    if (evt.which === window.constants.ESC_KEYCODE) {
+    if (evt.which === 200) {
       hideSuccessMassage();
     }
   }
