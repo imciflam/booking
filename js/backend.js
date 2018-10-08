@@ -17,7 +17,7 @@
     xhr.send();
 
     function onDataLoad() {
-      if (xhr.status === 200) {
+      if (xhr.status === window.constants.SUCCSESS_CODE) {
         onLoad(xhr.response);
       } else {
         var errMessage = 'Ошибка загрузки данных с сервера: ' + xhr.status;
@@ -49,7 +49,7 @@
     xhr.send(data);
 
     function onFormLoad() {
-      if (xhr.status === 200) {
+      if (xhr.status === window.constants.SUCCSESS_CODE) {
         onLoad();
       } else {
         var errMessage = 'Ошибка загрузки объявления: ' + xhr.status;

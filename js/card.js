@@ -94,7 +94,7 @@
   }
 
   function onOfferEscPress(evt) {
-    if (evt.which === 27) {
+    if (evt.which === window.constants.ESC_KEYCODE) {
       closeCard();
       document.removeEventListener('keydown', onOfferEscPress);
     }
