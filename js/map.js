@@ -48,8 +48,8 @@ var price = adForm.querySelector('#price');
 var selectType = adForm.querySelector('#type');
 var selectTimeIn = adForm.querySelector('#timein');
 var selectTimeOut = adForm.querySelector('#timeout');
-var selectRoom = document.querySelector('#room_number');
-var selectCapacity = document.querySelector('#capacity');
+var selectRoom = adForm.querySelector('#room_number');
+var selectCapacity = adForm.querySelector('#capacity');
 var submit = document.querySelector('.ad-form__submit');
 var templatePin = document.querySelector('#pin').content.querySelector('.map__pin');
 var templateCard = document.querySelector('#card').content.querySelector('.map__card');
@@ -57,10 +57,19 @@ var map = document.querySelector('.map');
 var pinContainer = map.querySelector('.map__pins');
 var mapFilters = map.querySelector('.map__filters-container');
 var mapPinMain = map.querySelector('.map__pin--main'); 
-
-//  var inputs = document.querySelectorAll('input');
+ 
 var currentAd;
 var pins = [];
+
+var fields = adForm.querySelectorAll('fieldset > input, select');
+  var resetButton = adForm.querySelector('.ad-form__reset');
+  var PriceOfType = {
+    'bungalo': 0,
+    'flat': 1000,
+    'house': 5000,
+    'palace': 10000
+  };
+
 
 var getRandomInt = function (min, max) {
   return Math.round(Math.random() * (max - min)) + min;
