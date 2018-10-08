@@ -5,7 +5,7 @@
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <title>Booking machine</title>
+  <title>Кексобукинг</title>
 </head>
 <body>
 
@@ -84,7 +84,7 @@
     <!-- Форма объявления -->
     <section class="notice">
       <h2 class="notice__title">Ваше объявление</h2>
-      <form class="ad-form ad-form--disabled" method="post" enctype="multipart/form-data" autocomplete="off">
+      <form class="ad-form ad-form--disabled" method="post" action="https://js.dump.academy/keksobooking" enctype="multipart/form-data" autocomplete="off">
         <fieldset class="ad-form-header">
           <legend class="ad-form-header__title">Ваша фотография (для карты)</legend>
           <div class="ad-form-header__upload">
@@ -100,11 +100,11 @@
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
           <label class="ad-form__label" for="title">Заголовок объявления</label>
-          <input id="title" name="title" type="text" required minlength="10" maxlength="100" placeholder="Милая, уютная квартирка в центре Токио">
+          <input id="title" name="title" type="text" minlength="30" maxlength="100" placeholder="Милая, уютная квартирка в центре Токио" required>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
           <label class="ad-form__label" for="address">Адрес</label>
-          <input id="address" name="address" type="text"><!--readonly-->
+          <input id="address" name="address" type="text" readonly>
         </fieldset>
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="type">Тип жилья</label>
@@ -117,7 +117,7 @@
         </fieldset>
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="price">Цена за ночь, руб.</label>
-          <input id="price" name="price" type="number" required max="1000000" placeholder="5000">
+          <input id="price" name="price" type="number" max="1000000" placeholder="1000" required>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--time">
           <label class="ad-form__label" for="timein">Время заезда и выезда</label>
@@ -189,7 +189,10 @@
 
   <footer class="footer container">
     <div class="footer__copyright copyright">
-      <p>Сделано в 2018</p>
+      <a class="copyright__link copyright__link--image" href="https://htmlacademy.ru/intensive/javascript">
+        <img src="img/htmla-logo.svg" width="130" height="45" alt="HTML Academy" class="copyright__logo">
+      </a>
+      <p>Сделано в <a class="copyright__link copyright__link--text" href="https://htmlacademy.ru/intensive/javascript">HTMLAcademy</a> &copy; 2018</p>
     </div>
     <ul class="footer__contacts contacts">
       <li><a href="https://twitter.com/htmlacademy_ru" class="contacts__link contacts__link--twitter">Twitter</a></li>
@@ -245,9 +248,14 @@
     </div>
   </template>
 
-<script src="js/backend.js"></script>
-<script src="js/map.js"></script>
-
+  <script src="js/constants.js"></script>
+  <script src="js/pins.js"></script>
+  <script src="js/card.js"></script>
+  <script src="js/form.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/backend.js"></script>
+  <script src="js/debounce.js"></script>
+  <script src="js/notice.js"></script>
+  <script src="js/filter.js"></script>
 </body>
 </html>
- 

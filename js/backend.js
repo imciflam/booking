@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var URL_UPLOAD = 'https://js.dump.academy/keksobooking';
+  var URL_LOAD = 'https://js.dump.academy/keksobooking/data';
 
   function loadData(onLoad, onError) {
     var xhr = new XMLHttpRequest();
@@ -11,11 +13,11 @@
     xhr.addEventListener('timeout', onDataLoadTimeOut);
 
     xhr.timeout = 5000;
-    xhr.open('GET', 'https://js.dump.academy/keksobooking/data');
+    xhr.open('GET', URL_LOAD);
     xhr.send();
 
     function onDataLoad() {
-      if (xhr.status === 200) {
+      if (xhr.status === window.constants.SUCCSESS_CODE) {
         onLoad(xhr.response);
       } else {
         var errMessage = 'Ошибка загрузки данных с сервера: ' + xhr.status;
@@ -43,11 +45,11 @@
     xhr.addEventListener('timeout', onFormUpLoadTimeOut);
 
     xhr.timeout = 5000;
-    xhr.open('POST', 'https://js.dump.academy/keksobooking');
+    xhr.open('POST', URL_UPLOAD);
     xhr.send(data);
 
     function onFormLoad() {
-      if (xhr.status === 200) {
+      if (xhr.status === window.constants.SUCCSESS_CODE) {
         onLoad();
       } else {
         var errMessage = 'Ошибка загрузки объявления: ' + xhr.status;
